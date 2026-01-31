@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    overflow: auto;
+}
+
+.bg-fms {
+    background-color: rgb(137, 39, 127);
+}
+
+.bg-fms-btn {
+    background-color: rgb(137, 39, 127);
+    border-radius: .375rem;
+}
+
+.text-thai {
+    white-space: pre-line;
+    /* ถ้าต้องการให้รองรับภาษาไทยได้ดีขึ้น */
+    line-break: loose;
+}
+
+.search-bar {
+    height: 50px;
+}
+
+.a-full {
+    width: 100%;
+}
+
+.sticky-element {
+    position: sticky;
+    top: 20%;
+}
+
+.rating {
+    display: inline-block;
+}
+
+.rating {
+    position: relative;
+}
+
+.rating input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.rating label {
+    color: #ddd;
+    float: right;
+}
+
+.rating label:before {
+    content: '\2605';
+    font-size: 30px;
+}
+
+.rating input:checked~label,
+.rating label:hover,
+.rating label:hover~label {
+    color: #FF9529;
+    transform: color 0.3s;
+}
+
+.rating-show {
+    display: flex;
+    align-items: center;
+    /* จัดให้อยู่บรรทัดเดียวกับคำว่าคะแนน */
+}
+
+.rating-show .star {
+    font-size: 30px;
+    color: #ddd;
+    /* สีพื้นฐาน (สีเทา) */
+    margin-right: 2px;
+    /* ระยะห่างระหว่างดาว */
+}
+
+/* คลาส active สำหรับดาวที่ถูกระบายสี */
+.rating-show .star.active {
+    color: #FF9529;
+    /* สีส้ม */
+}
+
+.lightBlueGradient {
+    background: radial-gradient(166.59% 206.98% at 50.14%, #E8F8F8 0%, #A9F0F5 100%);
+}
+
+.badge-primary {
+    color: #fff;
+    background-color: #007bff;
+}

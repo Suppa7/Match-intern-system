@@ -21,6 +21,11 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    public function username()
+    {
+        return 'student_id';
+    }
+
     /**
      * Where to redirect users after login.
      *
@@ -36,10 +41,6 @@ class LoginController extends Controller
 
         if ($role === 'admin') {
             return route('admin.index'); 
-        }
-
-        if ($role === 'company') {
-            return route('company.index');
         }
 
         return route('user.index');

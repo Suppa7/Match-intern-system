@@ -3,42 +3,20 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="mt-5">
-                    <h2 class="text-center fw-bold">Welcome <span
-                            class="text-decoration-underline">{{ Auth::user()->name }}</span> !
-                    </h2>
+            <div class="col-md-12">
+                <div class=" mt-3">
+                    <a href="{{ route('user.index') }}" class="btn btn-secondary ">
+                        <div class="d-flex align-items-center">
+                            <i class='bxr  bx-chevrons-left'></i> กลับสู่หน้าหลัก
+                        </div>
+                    </a>
                 </div>
             </div>
-            {{-- Search --}}
-            <div class="col-md-10 mt-3 text-center">
-                <form action="{{ route('user.search') }}" method="GET">
-                    @csrf
-                    <div class="row justify-content-center">
-                        <div class="col-md-10 pe-0">
-                            <input type="text" class="form-control search-bar" name='company_name' placeholder="โปรดระบุชื่อสถานประกอบการ">
-                        </div>
-                        <div class="col-md-2 p-0 ">
-                            <button type="submit" class="btn btn-info search-bar me-1"><i class='bx  bx-search '></i>
-                            </button>
-                            <button type="button" class="btn btn-primary search-bar" data-bs-toggle="modal"
-                                data-bs-target="#filterModal">
-                                <i class='bxr  bx-sparkles-alt'></i> filter 
-                            </button>
-                        </div>
-                    </div>
-                </form>
+            <div class="col-md-8">
+                <div class="mt-5">
+                    <h2 class="text-center fw-bold">My Review</h2>
+                </div>
             </div>
-            @if (session('success'))
-                <script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: "{{ session('success') }}",
-                        timer: 1500
-                    })
-                </script>
-            @endif
             <div class="col-md-10 mt-5 mx-auto">
                 <div class="row">
                     <div class="col-md-4">
@@ -53,6 +31,7 @@
                                 </div>
                             </div>
                         </div>
+
                         {{-- 2. ปุ่มเมนู (ย้ายมาไว้ตรงนี้ ต่อจาก Profile) --}}
                         <div class="d-grid gap-2"> {{-- ใช้ d-grid gap-2 แทน a-full เพื่อให้ปุ่มเต็มและเว้นระยะ --}}
                             <a href="{{ route('user.create') }}" class="btn btn-outline-primary">
@@ -76,8 +55,7 @@
                                             <div class="d-flex align-items-center mb-3">
                                                 <h5 class="card-title fw-bold m-0 me-2">{{ $item->company_name }}</h5>
                                                 <span class="badge text-bg-primary me-1">{{ $item->type }}</span>
-                                                <span class="badge text-bg-info me-1">{{ $item->submajor }}</span>
-                                                <span class="badge text-bg-warning">{{ $item->created_at->format('Y') }}</span>
+                                                <span class="badge text-bg-info">{{ $item->created_at->format('Y') }}</span>
                                                 <div class="dropdown ms-auto">
                                                     <button type="button" class="btn p-0 " data-bs-toggle="dropdown">
                                                         <i class="icon-base bx bx-dots-vertical-rounded"></i>
@@ -91,33 +69,16 @@
                                                                 <i class='bx  bx-star me-2'></i> add to My favorite
                                                             @endif
                                                         </a>
-                                                        @if ($item->user_id == Auth::user()->id)
+                                                        @if($item->user_id == Auth::user()->id)
                                                             <a class="dropdown-item d-flex align-items-center text-primary"
                                                                 href="{{ route('user.edit', ['id' => $item->id]) }}">
-                                                                <i class='bxr  bx-edit me-2'></i> edit
+                                                                    <i class='bxr  bx-edit me-2'></i> edit
                                                             </a>
                                                         @endif
-                                                        @if ($item->ReportReview->contains('user_id', Auth::id()))
-                                                            {{-- ถ้าเคย Report แล้ว ให้ขึ้นปุ่มยกเลิก --}}
-                                                            <a href="{{ route('user.delete_report',['id'=> $item->id]) }}"
-                                                                class="dropdown-item text-danger d-flex align-items-center">
-                                                                <i class='bx bx-block me-2'></i>cancle report
-                                                            </a>
-                                                        @else
-                                                            {{-- ถ้ายังไม่เคย Report ให้ขึ้นปุ่ม Report ปกติ --}}
-                                                            <a type="button"
-                                                                data-bs-target="#reportModal-{{ $item->id }}"
-                                                                data-bs-toggle="modal"
-                                                                class="dropdown-item text-danger d-flex align-items-center">
-                                                                <i class='bx bx-block me-2'></i>Report
-                                                            </a>
-                                                        @endif
-                                                        @if ($item->user_id == Auth::user()->id)
-                                                            <a class="dropdown-item d-flex align-items-center text-danger"
-                                                                href="{{ route('user.destroy', ['id' => $item->id]) }}">
-                                                                <i class='bxr  bx-trash me-2'></i>  delete 
-                                                            </a>
-                                                        @endif
+                                                        <a href="" 
+                                                            class="dropdown-item text-danger d-flex align-items-center">
+                                                            <i class='bxr  bx-block me-2'></i> Report
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,8 +92,8 @@
                                                     @endforeach
                                                 </div>
                                                 <a href="{{ route('user.show', ['id' => $item->id]) }}"
-                                                    class="btn btn-primary btn-sm d-flex align-items-center">
-                                                    <i class='bxr  bx-info-circle me-2'></i> Detail
+                                                    class="btn btn-primary btn-sm">
+                                                    Detail
                                                 </a>
                                             </div>
                                         </div>
@@ -158,6 +119,4 @@
             </div>
         </div>
     </div>
-
-    @include('user.modal')
 @endsection
